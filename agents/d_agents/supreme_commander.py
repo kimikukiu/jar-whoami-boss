@@ -330,6 +330,39 @@ class SupremeCommander(AgentBase):
     async def _decide_optimizations(self) -> List[Dict]: return []
     async def _apply_optimization(self, opt: Dict): pass
 
+    # Implementări metode abstracte din AgentBase
+    async def initialize(self) -> bool:
+        """Initializează Supreme Commander"""
+        print("    🎖️ Supreme Commander initializing...")
+        await self._initialize_autonomous_agents()
+        asyncio.create_task(self._command_loop())
+        print("    ✅ Supreme Commander ready")
+        return True
+    
+    async def execute_task(self, task: Dict[str, Any]) -> Dict[str, Any]:
+        """Execută un task primit"""
+        task_type = task.get('type', 'unknown')
+        
+        if task_type == 'receive_order':
+            return await self.receive_order(task.get('order', {}))
+        elif task_type == 'get_status':
+            return self.get_status()
+        else:
+            return {"status": "error", "message": f"Unknown task type: {task_type}"}
+    
+    async def process_message(self, message) -> Any:
+        """Procesează un mesaj primit"""
+        # Route message to appropriate handler
+        msg_type = getattr(message, 'msg_type', 'unknown')
+        content = getattr(message, 'content', {})
+        
+        if msg_type == 'ORDER':
+            return await self.receive_order(content)
+        elif msg_type == 'QUERY':
+            return self.get_status()
+        else:
+            return {"status": "ignored", "message": "Message type not handled"}
+
 
 # Instanță singleton
 _supreme_commander = None

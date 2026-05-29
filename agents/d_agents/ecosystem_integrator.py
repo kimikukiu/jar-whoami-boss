@@ -10,7 +10,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
-from core.agent_base import AgentBase, Tier
+from core.agent_base import AgentBase
+from core.types import AgentTier as Tier
 
 
 class EcosystemIntegratorAgent(AgentBase):
