@@ -15,6 +15,7 @@ import TerminalPanel from './components/TerminalPanel'
 import TaskBoard from './components/TaskBoard'
 import CommsPanel from './components/CommsPanel'
 import WorldPanel from './components/WorldPanel'
+import WorldMapCyberpunk from './components/WorldMapCyberpunk'
 import VoiceIndicator from './components/VoiceIndicator'
 
 const NAV_ITEMS = [
